@@ -5,193 +5,481 @@ include('../includes/header.php');
 ?>
 
 <style>
-/* Slide-in animations */
-@keyframes slideInFromTop {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ── Google Font ───────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+:root {
+    --teal:      #71C9CE;
+    --teal-dark: #4db8be;
+    --teal-dim:  #A6E3E9;
+    --teal-pale: #E3FDFD;
+    --ink:       #0d1117;
+    --muted:     #6b7a8d;
+    --surface:   #ffffff;
+    --border:    rgba(113,201,206,0.18);
 }
 
-@keyframes slideInFromLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+/* base */
+body { font-family: 'DM Sans', sans-serif; }
+h1, h2, h3, h4 { font-family: 'Sora', sans-serif; }
+
+/* ── Animated mesh background ──────────────────────────────── */
+.hero-bg {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f0fdfd 0%, #e8f9f9 40%, #f5fffe 100%);
+}
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.45;
+    animation: drift 12s ease-in-out infinite alternate;
+}
+.blob-1 { width: 520px; height: 520px; background: #71C9CE; top: -140px; left: -100px; animation-duration: 14s; }
+.blob-2 { width: 380px; height: 380px; background: #A6E3E9; top: 60px; right: -80px; animation-duration: 10s; animation-delay: -4s; }
+.blob-3 { width: 260px; height: 260px; background: #CBF5F7; bottom: -60px; left: 38%; animation-duration: 16s; animation-delay: -8s; }
+@keyframes drift {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(30px, 20px) scale(1.08); }
 }
 
-@keyframes slideInFromRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+/* ── Entrance animations ───────────────────────────────────── */
+@keyframes fadeUp   { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+@keyframes scaleIn  { from { opacity:0; transform:scale(.92); } to { opacity:1; transform:scale(1); } }
+
+.fade-up  { opacity:0; animation: fadeUp  0.7s cubic-bezier(.22,.68,0,1.2) forwards; }
+.fade-in  { opacity:0; animation: fadeIn  0.8s ease forwards; }
+.scale-in { opacity:0; animation: scaleIn 0.6s cubic-bezier(.22,.68,0,1.2) forwards; }
+
+.d1 { animation-delay:.05s; } .d2 { animation-delay:.15s; }
+.d3 { animation-delay:.25s; } .d4 { animation-delay:.38s; }
+.d5 { animation-delay:.52s; } .d6 { animation-delay:.66s; }
+.d7 { animation-delay:.80s; } .d8 { animation-delay:.94s; }
+
+/* ── Glass card ────────────────────────────────────────────── */
+.glass {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 32px rgba(113,201,206,0.10), 0 1px 0 rgba(255,255,255,0.9) inset;
+}
+.glass:hover {
+    box-shadow: 0 8px 40px rgba(113,201,206,0.18), 0 1px 0 rgba(255,255,255,0.9) inset;
+    transform: translateY(-3px);
+    transition: all 0.3s ease;
 }
 
-@keyframes slideInFromBottom {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ── Feature icon ──────────────────────────────────────────── */
+.feat-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--teal-pale) 0%, #cbf5f7 100%);
+    margin-bottom: 1.25rem;
+    font-size: 1.35rem;
+    color: var(--teal-dark);
+    transition: transform 0.3s;
+}
+.glass:hover .feat-icon { transform: scale(1.1) rotate(-4deg); }
+
+/* ── Step pill ─────────────────────────────────────────────── */
+.step-num {
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--teal) 0%, #4db8be 100%);
+    color: white;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(113,201,206,0.4);
+    margin: 0 auto 1.25rem;
+    transition: transform 0.3s;
+}
+.step-card:hover .step-num { transform: scale(1.08) rotate(3deg); }
+
+/* ── Stat badge ────────────────────────────────────────────── */
+.stat-val {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    background: linear-gradient(135deg, var(--teal-dark) 0%, #3aabb1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+/* ── CTA pill buttons ──────────────────────────────────────── */
+.btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+    color: white;
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 14px;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(113,201,206,0.45);
+    transition: all 0.25s ease;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(113,201,206,0.5); }
+
+.btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 28px;
+    background: rgba(255,255,255,0.8);
+    color: var(--ink);
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 14px;
+    text-decoration: none;
+    border: 1.5px solid rgba(113,201,206,0.3);
+    backdrop-filter: blur(8px);
+    transition: all 0.25s ease;
+}
+.btn-ghost:hover { border-color: var(--teal); color: var(--teal-dark); transform: translateY(-2px); }
+
+/* ── Divider line ──────────────────────────────────────────── */
+.section-label {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 99px;
+    background: var(--teal-pale);
+    color: var(--teal-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-family: 'Sora', sans-serif;
 }
 
-/* Apply animations with delays */
-.animate-slide-top {
-    animation: slideInFromTop 0.8s ease-out forwards;
+/* ── Connector dots between steps ─────────────────────────── */
+.step-connector {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal-dim), transparent);
+    margin-top: -30px;
+    opacity: 0.5;
 }
 
-.animate-slide-left {
-    animation: slideInFromLeft 0.8s ease-out forwards;
+/* ── Testimonial card ──────────────────────────────────────── */
+.quote-mark {
+    font-family: 'Sora', serif;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--teal-dim);
+    margin-bottom: -1rem;
+    display: block;
 }
 
-.animate-slide-right {
-    animation: slideInFromRight 0.8s ease-out forwards;
+/* ── Scroll reveal ─────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Full-bleed hero: break out of any wrapping container ──── */
+.hero-bg {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 
-.animate-slide-bottom {
-    animation: slideInFromBottom 0.8s ease-out forwards;
+/* ── Kill the white box from header.php wrapper ────────────── */
+body { background: #f0fdfd !important; }
+
+/* Strip background + padding from every common wrapper pattern */
+body > div,
+body > main,
+body > div > div,
+[class*="max-w"],
+[class*="container"],
+.page-wrapper,
+.content-wrapper,
+.wrapper,
+#app, #main, #content {
+    background: transparent !important;
 }
 
-.animate-fade {
-    animation: fadeIn 1s ease-out forwards;
-}
+/* Also nuke any Tailwind bg-white / bg-gray etc that might be on the wrapper */
+.bg-white:not(nav):not(nav *)   { background-color: transparent !important; }
+.bg-gray-50:not(nav):not(nav *) { background-color: transparent !important; }
+.bg-gray-100:not(nav):not(nav *){ background-color: transparent !important; }
 
-/* Delay classes */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
-.delay-600 { animation-delay: 0.6s; }
-.delay-700 { animation-delay: 0.7s; }
-.delay-800 { animation-delay: 0.8s; }
+/* Re-apply white bg only to our explicit content sections */
+section.features-section  { background-color: #ffffff !important; }
+section.hiw-section       { background: linear-gradient(135deg,#f0fdfd 0%,#f8fffe 100%) !important; }
+section.marquee-section   { background-color: #ffffff !important; border-top: 1px solid #E3FDFD; border-bottom: 1px solid #E3FDFD; }
+section.testimonial-section { background-color: #ffffff !important; }
+section.cta-section       { background: linear-gradient(135deg,#e3fdfd 0%,#cbf5f7 100%) !important; }
 
-/* Initial state - hidden */
-.animate-slide-top,
-.animate-slide-left,
-.animate-slide-right,
-.animate-slide-bottom,
-.animate-fade {
-    opacity: 0;
+/* Sections after hero restore their own backgrounds */
+section.py-28,
+section.py-20,
+section.py-10 {
+    position: relative;
+    z-index: 1;
 }
 </style>
 
-<div class="py-12">
-    <!-- Hero Section -->
-    <div class="text-center mb-16">
-        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 animate-slide-top">
-            Smart Appointment & Queue Management
-        </h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-10 animate-slide-top delay-200">
-            Streamline your appointments, reduce waiting times, and manage queues efficiently with our modern solution.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-top delay-400">
-            <a href="book.php" class="inline-flex items-center justify-center px-8 py-4 bg-[#71C9CE] text-white font-semibold rounded-xl hover:bg-[#5ab4b9] transition-all shadow-lg hover:shadow-xl">
-                <i class="fas fa-calendar-plus mr-2"></i> Book Appointment Now
-            </a>
-            <a href="queue.php" class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-800 font-semibold rounded-xl border-2 border-gray-200 hover:border-[#71C9CE] hover:text-[#71C9CE] transition-all">
-                <i class="fas fa-list-ol mr-2"></i> Check My Queue
-            </a>
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero-bg hero-breakout min-h-[88vh] flex items-center">
+    <!-- Background blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 w-full">
+        <div class="max-w-3xl mx-auto text-center">
+            <!-- Eyebrow label -->
+            <div class="fade-in d1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 border border-[#71C9CE]/25 backdrop-blur-sm text-sm font-semibold text-[#3aabb1] mb-6 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-[#71C9CE] animate-pulse"></span>
+                Smart Queue Management — Now Live
+            </div>
+
+            <!-- Headline -->
+            <h1 class="fade-up d2 text-5xl md:text-[4.2rem] font-extrabold text-[#0d1117] leading-[1.08] tracking-tight mb-6">
+                Say goodbye to<br>
+                <span style="background:linear-gradient(135deg,#71C9CE 0%,#3aabb1 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                    waiting in line.
+                </span>
+            </h1>
+
+            <!-- Sub -->
+            <p class="fade-up d3 text-lg text-[#6b7a8d] leading-relaxed max-w-xl mx-auto mb-10 font-light">
+                AquaQueue streamlines appointments across clinics, salons, law offices, and more — so your time is never wasted again.
+            </p>
+
+            <!-- CTAs -->
+            <div class="fade-up d4 flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="book.php" class="btn-primary">
+                    <i class="fas fa-calendar-plus"></i> Book Appointment
+                </a>
+                <a href="about.php" class="btn-ghost">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </a>
+            </div>
+
+            <!-- Social proof strip -->
+            <div class="fade-in d5 mt-12 flex flex-wrap gap-6 justify-center text-sm text-[#6b7a8d]">
+                <span class="flex items-center gap-1.5"><i class="fas fa-check-circle text-[#71C9CE]"></i> No credit card required</span>
+                <span class="flex items-center gap-1.5"><i class="fas fa-check-circle text-[#71C9CE]"></i> Works on all devices</span>
+                <span class="flex items-center gap-1.5"><i class="fas fa-check-circle text-[#71C9CE]"></i> 24/7 online booking</span>
+            </div>
+        </div>
+
+        <!-- Floating stat cards -->
+        <div class="scale-in d6 mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+            <?php
+            $stats = [
+                ['1,500+', 'Appointments Today',  'fa-calendar-check'],
+                ['98%',    'Satisfaction Rate',   'fa-star'],
+                ['15 min', 'Avg. Wait Time',      'fa-clock'],
+                ['24/7',   'Online Booking',      'fa-globe'],
+            ];
+            foreach ($stats as $s):
+            ?>
+            <div class="glass rounded-2xl p-5 text-center transition-all duration-300">
+                <i class="fas <?= $s[2] ?> text-[#71C9CE] text-xl mb-2 block"></i>
+                <div class="stat-val"><?= $s[0] ?></div>
+                <div class="text-xs text-[#6b7a8d] font-medium mt-1"><?= $s[1] ?></div>
+            </div>
+            <?php endforeach; ?>
         </div>
     </div>
+</section>
 
-    <!-- Features Section -->
-    <div class="grid md:grid-cols-3 gap-8 mb-20">
-        <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 animate-slide-left delay-200">
-            <div class="w-14 h-14 bg-[#A6E3E9] rounded-xl flex items-center justify-center mb-5">
-                <i class="fas fa-clock text-[#71C9CE] text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-semibold mb-3 text-gray-900">Real-time Queue</h3>
-            <p class="text-gray-600 leading-relaxed">Live updates on your queue position and estimated waiting time.</p>
+<!-- ══════════════════════════════════════════════════════════
+     FEATURES
+════════════════════════════════════════════════════════════ -->
+<section class="py-28 features-section">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16 reveal">
+            <span class="section-label">Why AquaQueue</span>
+            <h2 class="text-4xl font-bold text-[#0d1117] mt-2">Everything you need,<br>nothing you don't</h2>
         </div>
-        <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 animate-slide-bottom delay-400">
-            <div class="w-14 h-14 bg-[#A6E3E9] rounded-xl flex items-center justify-center mb-5">
-                <i class="fas fa-mobile-alt text-[#71C9CE] text-2xl"></i>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <?php
+            $features = [
+                ['fa-bolt',          'Instant Booking',       'Reserve a slot in seconds across all supported services — no phone calls, no waiting on hold.'],
+                ['fa-clock',         'Real-time Queue',       'Live position updates and accurate ETAs so you never have to guess when your turn is coming.'],
+                ['fa-bell',          'Smart Notifications',   'Get notified via email when your appointment is confirmed and when your turn is approaching.'],
+                ['fa-shield-alt',    'Secure & Private',      'Your booking data is encrypted and never shared. We take your privacy seriously.'],
+                ['fa-mobile-alt',    'Mobile First',          'Designed from the ground up for phones. Book, track, and manage on any screen, anywhere.'],
+                ['fa-chart-bar',     'Admin Analytics',       'Businesses get powerful dashboards to track queue flow, peak times, and service performance.'],
+            ];
+            foreach ($features as $i => $f):
+            ?>
+            <div class="glass rounded-2xl p-7 reveal transition-all duration-300 cursor-default" style="transition-delay:<?= $i * 0.08 ?>s">
+                <div class="feat-icon"><i class="fas <?= $f[0] ?>"></i></div>
+                <h3 class="font-bold text-lg text-[#0d1117] mb-2"><?= $f[1] ?></h3>
+                <p class="text-[#6b7a8d] text-sm leading-relaxed"><?= $f[2] ?></p>
             </div>
-            <h3 class="text-xl font-semibold mb-3 text-gray-900">Mobile Friendly</h3>
-            <p class="text-gray-600 leading-relaxed">Access and manage your appointments from any device.</p>
-        </div>
-        <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 animate-slide-right delay-600">
-            <div class="w-14 h-14 bg-[#A6E3E9] rounded-xl flex items-center justify-center mb-5">
-                <i class="fas fa-bell text-[#71C9CE] text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-semibold mb-3 text-gray-900">Smart Notifications</h3>
-            <p class="text-gray-600 leading-relaxed">Get notified when your turn is approaching.</p>
+            <?php endforeach; ?>
         </div>
     </div>
+</section>
 
-    <!-- Stats -->
-    <div class="bg-white rounded-3xl p-10 mb-20 shadow-sm border border-gray-100 animate-slide-bottom delay-300">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="text-center animate-fade delay-500">
-                <div class="text-4xl font-bold text-[#71C9CE] mb-2">1,500+</div>
-                <div class="text-gray-600 font-medium">Appointments Today</div>
-            </div>
-            <div class="text-center animate-fade delay-600">
-                <div class="text-4xl font-bold text-[#71C9CE] mb-2">98%</div>
-                <div class="text-gray-600 font-medium">Satisfaction Rate</div>
-            </div>
-            <div class="text-center animate-fade delay-700">
-                <div class="text-4xl font-bold text-[#71C9CE] mb-2">15 min</div>
-                <div class="text-gray-600 font-medium">Avg. Wait Time</div>
-            </div>
-            <div class="text-center animate-fade delay-800">
-                <div class="text-4xl font-bold text-[#71C9CE] mb-2">24/7</div>
-                <div class="text-gray-600 font-medium">Online Booking</div>
-            </div>
+<!-- ══════════════════════════════════════════════════════════
+     HOW IT WORKS
+════════════════════════════════════════════════════════════ -->
+<section class="py-28 hiw-section">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16 reveal">
+            <span class="section-label">The Process</span>
+            <h2 class="text-4xl font-bold text-[#0d1117] mt-2">Up and running<br>in four simple steps</h2>
         </div>
-    </div>
 
-    <!-- How it Works -->
-    <div class="mb-16">
-        <h2 class="text-4xl font-bold text-center mb-12 text-gray-900 animate-slide-top delay-200">How It Works</h2>
         <div class="grid md:grid-cols-4 gap-8">
-            <div class="text-center animate-slide-bottom delay-300">
-                <div class="w-20 h-20 bg-[#71C9CE] rounded-2xl flex items-center justify-center text-white text-3xl font-bold mx-auto mb-5 shadow-md">1</div>
-                <h3 class="text-xl font-semibold mb-3 text-gray-900">Book Appointment</h3>
-                <p class="text-gray-600">Select your preferred service and time slot</p>
+            <?php
+            $steps = [
+                ['Book',          'Pick your service, location, date, and time slot in under a minute.'],
+                ['Get Number',    'Receive a unique queue number and booking confirmation instantly.'],
+                ['Track Live',    'Watch your position in the queue update in real time from any device.'],
+                ['Get Served',    'Walk in right on time — no waiting room anxiety, no wasted time.'],
+            ];
+            foreach ($steps as $i => $s):
+            ?>
+            <div class="step-card text-center reveal" style="transition-delay:<?= $i * 0.1 ?>s">
+                <div class="step-num"><?= $i + 1 ?></div>
+                <h3 class="font-bold text-[#0d1117] text-lg mb-2"><?= $s[0] ?></h3>
+                <p class="text-[#6b7a8d] text-sm leading-relaxed"><?= $s[1] ?></p>
             </div>
-            <div class="text-center animate-slide-bottom delay-400">
-                <div class="w-20 h-20 bg-[#71C9CE] rounded-2xl flex items-center justify-center text-white text-3xl font-bold mx-auto mb-5 shadow-md">2</div>
-                <h3 class="text-xl font-semibold mb-3 text-gray-900">Get Queue Number</h3>
-                <p class="text-gray-600">Receive your position in the queue</p>
-            </div>
-            <div class="text-center animate-slide-bottom delay-500">
-                <div class="w-20 h-20 bg-[#71C9CE] rounded-2xl flex items-center justify-center text-white text-3xl font-bold mx-auto mb-5 shadow-md">3</div>
-                <h3 class="text-xl font-semibold mb-3 text-gray-900">Track & Notify</h3>
-                <p class="text-gray-600">Monitor your progress in real-time</p>
-            </div>
-            <div class="text-center animate-slide-bottom delay-600">
-                <div class="w-20 h-20 bg-[#71C9CE] rounded-2xl flex items-center justify-center text-white text-3xl font-bold mx-auto mb-5 shadow-md">4</div>
-                <h3 class="text-xl font-semibold mb-3 text-gray-900">Get Served</h3>
-                <p class="text-gray-600">Your turn arrives, get notified</p>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
-</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SERVICES MARQUEE STRIP
+════════════════════════════════════════════════════════════ -->
+<section class="py-10 marquee-section overflow-hidden">
+    <style>
+    .marquee-track { display:flex; gap:0; animation: marquee 22s linear infinite; width: max-content; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-item {
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 0 36px;
+        font-family: 'Sora', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #6b7a8d;
+        white-space: nowrap;
+        border-right: 1.5px solid #E3FDFD;
+    }
+    .marquee-item i { color: #71C9CE; font-size: 1rem; }
+    </style>
+    <div class="marquee-track">
+        <?php
+        $services = [
+            ['fa-stethoscope', 'Medical Consultation'],
+            ['fa-cut',         'Hair Salon'],
+            ['fa-tooth',       'Dental Checkup'],
+            ['fa-gavel',       'Legal Consultation'],
+            ['fa-car',         'Vehicle Service'],
+            ['fa-briefcase',   'Business Meeting'],
+            ['fa-stethoscope', 'Medical Consultation'],
+            ['fa-cut',         'Hair Salon'],
+            ['fa-tooth',       'Dental Checkup'],
+            ['fa-gavel',       'Legal Consultation'],
+            ['fa-car',         'Vehicle Service'],
+            ['fa-briefcase',   'Business Meeting'],
+        ];
+        foreach ($services as $sv):
+        ?>
+        <div class="marquee-item"><i class="fas <?= $sv[0] ?>"></i><?= $sv[1] ?></div>
+        <?php endforeach; ?>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     TESTIMONIALS
+════════════════════════════════════════════════════════════ -->
+<section class="py-28 testimonial-section">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16 reveal">
+            <span class="section-label">What People Say</span>
+            <h2 class="text-4xl font-bold text-[#0d1117] mt-2">Trusted by thousands<br>across Metro Manila</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <?php
+            $testimonials = [
+                ['Maria S.', 'Patient, City Medical Center', 4.8, 'I used to dread doctor visits because of the long wait. AquaQueue changed that completely — I just walk in when it\'s almost my turn. Amazing!'],
+                ['James T.', 'Client, Santos Law Office',    5.0, 'Booked a legal consultation in two minutes flat. The whole experience felt premium. Highly recommend for busy professionals.'],
+                ['Carla R.', 'Customer, Glamour Studio',     4.9, 'Finally a salon that respects my time! I track my queue from a coffee shop nearby and walk in fresh. Love it.'],
+            ];
+            foreach ($testimonials as $i => $t):
+            ?>
+            <div class="glass rounded-2xl p-7 reveal" style="transition-delay:<?= $i * 0.1 ?>s">
+                <span class="quote-mark">"</span>
+                <p class="text-[#374151] text-sm leading-relaxed mb-6"><?= $t[3] ?></p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+                         style="background:linear-gradient(135deg,#71C9CE,#4db8be)">
+                        <?= strtoupper(substr($t[0], 0, 1)) ?>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-sm text-[#0d1117]"><?= $t[0] ?></div>
+                        <div class="text-xs text-[#6b7a8d]"><?= $t[1] ?></div>
+                    </div>
+                    <div class="ml-auto flex gap-0.5">
+                        <?php for ($s = 0; $s < 5; $s++): ?>
+                        <i class="fas fa-star text-xs <?= $s < floor($t[2]) ? 'text-yellow-400' : 'text-gray-200' ?>"></i>
+                        <?php endfor; ?>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CTA BANNER
+════════════════════════════════════════════════════════════ -->
+<section class="py-20 cta-section">
+    <div class="max-w-3xl mx-auto px-6 text-center reveal">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#0d1117] mb-4 leading-tight">
+            Ready to skip<br>the queue?
+        </h2>
+        <p class="text-[#6b7a8d] mb-10 text-lg font-light">
+            Join thousands of users who've taken back their time with AquaQueue.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="register.php" class="btn-primary text-base px-10 py-4">
+                <i class="fas fa-user-plus"></i> Create Free Account
+            </a>
+            <a href="book.php" class="btn-ghost text-base px-10 py-4">
+                <i class="fas fa-calendar-alt"></i> Book as Guest
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+// ── Intersection Observer for scroll reveals ──────────────────
+const revealEls = document.querySelectorAll('.reveal');
+const observer  = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+</script>
 
 <?php include('../includes/footer.php'); ?>
