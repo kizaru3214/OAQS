@@ -133,7 +133,7 @@ include('../includes/header.php');
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <input 
-                            id="remember-me" 
+                            id="remember-me"  
                             name="remember-me" 
                             type="checkbox"
                             class="h-4 w-4 text-[#71C9CE] focus:ring-[#71C9CE] border-gray-300 rounded">
