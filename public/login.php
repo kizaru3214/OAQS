@@ -143,7 +143,7 @@ include('../includes/header.php');
                     </div>
 
                     <div class="text-sm">
-                        <a href="forgot-password.php" class="font-medium text-[#71C9CE] hover:text-[#5ab4b9]">
+                        <a href="forgotpass.php" class="font-medium text-[#71C9CE] hover:text-[#5ab4b9]">
                             Forgot password?
                         </a>
                     </div>

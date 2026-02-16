@@ -20,7 +20,7 @@ include('../includes/header.php');
 }
 
 /* base */
-body { font-family: 'DM Sans', sans-serif; }
+body { font-family: 'DM Sans', sans-serif; overflow-x: hidden;}
 h1, h2, h3, h4 { font-family: 'Sora', sans-serif; }
 
 /* ── Animated mesh background ──────────────────────────────── */
@@ -194,7 +194,8 @@ h1, h2, h3, h4 { font-family: 'Sora', sans-serif; }
 }
 
 /* ── Kill the white box from header.php wrapper ────────────── */
-body { background: #f0fdfd !important; }
+body { background: #f0fdfd !important; 
+}
 
 /* Strip background + padding from every common wrapper pattern */
 body > div,

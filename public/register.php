@@ -208,7 +208,7 @@ include('../includes/header.php');
                         class="h-4 w-4 mt-1 text-[#71C9CE] focus:ring-[#71C9CE] border-gray-300 rounded">
                     <label for="terms" class="ml-2 block text-sm text-gray-700">
                         I agree to the 
-                        <a href="terms.php" class="font-medium text-[#71C9CE] hover:text-[#5ab4b9]">Terms of Service</a> 
+                        <a href="Terms.php" class="font-medium text-[#71C9CE] hover:text-[#5ab4b9]">Terms of Service</a> 
                         and 
                         <a href="privacy.php" class="font-medium text-[#71C9CE] hover:text-[#5ab4b9]">Privacy Policy</a>
                     </label>
