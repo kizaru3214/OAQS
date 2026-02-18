@@ -5,230 +5,401 @@ include('../includes/header.php');
 ?>
 
 <style>
-/* ── Google Font ───────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+    /* ── Google Font ───────────────────────────────────────────── */
+    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
-:root {
-    --teal:      #71C9CE;
-    --teal-dark: #4db8be;
-    --teal-dim:  #A6E3E9;
-    --teal-pale: #E3FDFD;
-    --ink:       #0d1117;
-    --muted:     #6b7a8d;
-    --surface:   #ffffff;
-    --border:    rgba(113,201,206,0.18);
-}
+    :root {
+        --teal: #71C9CE;
+        --teal-dark: #4db8be;
+        --teal-dim: #A6E3E9;
+        --teal-pale: #E3FDFD;
+        --ink: #0d1117;
+        --muted: #6b7a8d;
+        --surface: #ffffff;
+        --border: rgba(113, 201, 206, 0.18);
+    }
 
-/* base */
-body { font-family: 'DM Sans', sans-serif; overflow-x: hidden;}
-h1, h2, h3, h4 { font-family: 'Sora', sans-serif; }
+    /* base */
+    body {
+        font-family: 'DM Sans', sans-serif;
+        overflow-x: hidden;
+    }
 
-/* ── Animated mesh background ──────────────────────────────── */
-.hero-bg {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #f0fdfd 0%, #e8f9f9 40%, #f5fffe 100%);
-}
-.blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.45;
-    animation: drift 12s ease-in-out infinite alternate;
-}
-.blob-1 { width: 520px; height: 520px; background: #71C9CE; top: -140px; left: -100px; animation-duration: 14s; }
-.blob-2 { width: 380px; height: 380px; background: #A6E3E9; top: 60px; right: -80px; animation-duration: 10s; animation-delay: -4s; }
-.blob-3 { width: 260px; height: 260px; background: #CBF5F7; bottom: -60px; left: 38%; animation-duration: 16s; animation-delay: -8s; }
-@keyframes drift {
-    from { transform: translate(0, 0) scale(1); }
-    to   { transform: translate(30px, 20px) scale(1.08); }
-}
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: 'Sora', sans-serif;
+    }
 
-/* ── Entrance animations ───────────────────────────────────── */
-@keyframes fadeUp   { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
-@keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
-@keyframes scaleIn  { from { opacity:0; transform:scale(.92); } to { opacity:1; transform:scale(1); } }
+    /* ── Animated mesh background ──────────────────────────────── */
+    .hero-bg {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, #f0fdfd 0%, #e8f9f9 40%, #f5fffe 100%);
+    }
 
-.fade-up  { opacity:0; animation: fadeUp  0.7s cubic-bezier(.22,.68,0,1.2) forwards; }
-.fade-in  { opacity:0; animation: fadeIn  0.8s ease forwards; }
-.scale-in { opacity:0; animation: scaleIn 0.6s cubic-bezier(.22,.68,0,1.2) forwards; }
+    .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.45;
+        animation: drift 12s ease-in-out infinite alternate;
+    }
 
-.d1 { animation-delay:.05s; } .d2 { animation-delay:.15s; }
-.d3 { animation-delay:.25s; } .d4 { animation-delay:.38s; }
-.d5 { animation-delay:.52s; } .d6 { animation-delay:.66s; }
-.d7 { animation-delay:.80s; } .d8 { animation-delay:.94s; }
+    .blob-1 {
+        width: 520px;
+        height: 520px;
+        background: #71C9CE;
+        top: -140px;
+        left: -100px;
+        animation-duration: 14s;
+    }
 
-/* ── Glass card ────────────────────────────────────────────── */
-.glass {
-    background: rgba(255,255,255,0.72);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border);
-    box-shadow: 0 4px 32px rgba(113,201,206,0.10), 0 1px 0 rgba(255,255,255,0.9) inset;
-}
-.glass:hover {
-    box-shadow: 0 8px 40px rgba(113,201,206,0.18), 0 1px 0 rgba(255,255,255,0.9) inset;
-    transform: translateY(-3px);
-    transition: all 0.3s ease;
-}
+    .blob-2 {
+        width: 380px;
+        height: 380px;
+        background: #A6E3E9;
+        top: 60px;
+        right: -80px;
+        animation-duration: 10s;
+        animation-delay: -4s;
+    }
 
-/* ── Feature icon ──────────────────────────────────────────── */
-.feat-icon {
-    width: 52px; height: 52px;
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, var(--teal-pale) 0%, #cbf5f7 100%);
-    margin-bottom: 1.25rem;
-    font-size: 1.35rem;
-    color: var(--teal-dark);
-    transition: transform 0.3s;
-}
-.glass:hover .feat-icon { transform: scale(1.1) rotate(-4deg); }
+    .blob-3 {
+        width: 260px;
+        height: 260px;
+        background: #CBF5F7;
+        bottom: -60px;
+        left: 38%;
+        animation-duration: 16s;
+        animation-delay: -8s;
+    }
 
-/* ── Step pill ─────────────────────────────────────────────── */
-.step-num {
-    width: 56px; height: 56px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, var(--teal) 0%, #4db8be 100%);
-    color: white;
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
-    font-size: 1.4rem;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 6px 20px rgba(113,201,206,0.4);
-    margin: 0 auto 1.25rem;
-    transition: transform 0.3s;
-}
-.step-card:hover .step-num { transform: scale(1.08) rotate(3deg); }
+    @keyframes drift {
+        from {
+            transform: translate(0, 0) scale(1);
+        }
 
-/* ── Stat badge ────────────────────────────────────────────── */
-.stat-val {
-    font-family: 'Sora', sans-serif;
-    font-weight: 800;
-    font-size: 2.4rem;
-    background: linear-gradient(135deg, var(--teal-dark) 0%, #3aabb1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.1;
-}
+        to {
+            transform: translate(30px, 20px) scale(1.08);
+        }
+    }
 
-/* ── CTA pill buttons ──────────────────────────────────────── */
-.btn-primary {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 14px 28px;
-    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
-    color: white;
-    font-family: 'Sora', sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    border-radius: 14px;
-    text-decoration: none;
-    box-shadow: 0 6px 24px rgba(113,201,206,0.45);
-    transition: all 0.25s ease;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(113,201,206,0.5); }
+    /* ── Entrance animations ───────────────────────────────────── */
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(32px);
+        }
 
-.btn-ghost {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 13px 28px;
-    background: rgba(255,255,255,0.8);
-    color: var(--ink);
-    font-family: 'Sora', sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    border-radius: 14px;
-    text-decoration: none;
-    border: 1.5px solid rgba(113,201,206,0.3);
-    backdrop-filter: blur(8px);
-    transition: all 0.25s ease;
-}
-.btn-ghost:hover { border-color: var(--teal); color: var(--teal-dark); transform: translateY(-2px); }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-/* ── Divider line ──────────────────────────────────────────── */
-.section-label {
-    display: inline-block;
-    padding: 4px 14px;
-    border-radius: 99px;
-    background: var(--teal-pale);
-    color: var(--teal-dark);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    font-family: 'Sora', sans-serif;
-}
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
 
-/* ── Connector dots between steps ─────────────────────────── */
-.step-connector {
-    flex: 1;
-    height: 2px;
-    background: linear-gradient(90deg, var(--teal-dim), transparent);
-    margin-top: -30px;
-    opacity: 0.5;
-}
+        to {
+            opacity: 1;
+        }
+    }
 
-/* ── Testimonial card ──────────────────────────────────────── */
-.quote-mark {
-    font-family: 'Sora', serif;
-    font-size: 4rem;
-    line-height: 1;
-    color: var(--teal-dim);
-    margin-bottom: -1rem;
-    display: block;
-}
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(.92);
+        }
 
-/* ── Scroll reveal ─────────────────────────────────────────── */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
 
-/* ── Full-bleed hero: break out of any wrapping container ──── */
-.hero-bg {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-}
+    .fade-up {
+        opacity: 0;
+        animation: fadeUp 0.7s cubic-bezier(.22, .68, 0, 1.2) forwards;
+    }
 
-/* ── Kill the white box from header.php wrapper ────────────── */
-body { background: #f0fdfd !important; 
-}
+    .fade-in {
+        opacity: 0;
+        animation: fadeIn 0.8s ease forwards;
+    }
 
-/* Strip background + padding from every common wrapper pattern */
-body > div,
-body > main,
-body > div > div,
-[class*="max-w"],
-[class*="container"],
-.page-wrapper,
-.content-wrapper,
-.wrapper,
-#app, #main, #content {
-    background: transparent !important;
-}
+    .scale-in {
+        opacity: 0;
+        animation: scaleIn 0.6s cubic-bezier(.22, .68, 0, 1.2) forwards;
+    }
 
-/* Also nuke any Tailwind bg-white / bg-gray etc that might be on the wrapper */
-.bg-white:not(nav):not(nav *)   { background-color: transparent !important; }
-.bg-gray-50:not(nav):not(nav *) { background-color: transparent !important; }
-.bg-gray-100:not(nav):not(nav *){ background-color: transparent !important; }
+    .d1 {
+        animation-delay: .05s;
+    }
 
-/* Re-apply white bg only to our explicit content sections */
-section.features-section  { background-color: #ffffff !important; }
-section.hiw-section       { background: linear-gradient(135deg,#f0fdfd 0%,#f8fffe 100%) !important; }
-section.marquee-section   { background-color: #ffffff !important; border-top: 1px solid #E3FDFD; border-bottom: 1px solid #E3FDFD; }
-section.testimonial-section { background-color: #ffffff !important; }
-section.cta-section       { background: linear-gradient(135deg,#e3fdfd 0%,#cbf5f7 100%) !important; }
+    .d2 {
+        animation-delay: .15s;
+    }
 
-/* Sections after hero restore their own backgrounds */
-section.py-28,
-section.py-20,
-section.py-10 {
-    position: relative;
-    z-index: 1;
-}
+    .d3 {
+        animation-delay: .25s;
+    }
+
+    .d4 {
+        animation-delay: .38s;
+    }
+
+    .d5 {
+        animation-delay: .52s;
+    }
+
+    .d6 {
+        animation-delay: .66s;
+    }
+
+    .d7 {
+        animation-delay: .80s;
+    }
+
+    .d8 {
+        animation-delay: .94s;
+    }
+
+    /* ── Glass card ────────────────────────────────────────────── */
+    .glass {
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--border);
+        box-shadow: 0 4px 32px rgba(113, 201, 206, 0.10), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    }
+
+    .glass:hover {
+        box-shadow: 0 8px 40px rgba(113, 201, 206, 0.18), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+        transform: translateY(-3px);
+        transition: all 0.3s ease;
+    }
+
+    /* ── Feature icon ──────────────────────────────────────────── */
+    .feat-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--teal-pale) 0%, #cbf5f7 100%);
+        margin-bottom: 1.25rem;
+        font-size: 1.35rem;
+        color: var(--teal-dark);
+        transition: transform 0.3s;
+    }
+
+    .glass:hover .feat-icon {
+        transform: scale(1.1) rotate(-4deg);
+    }
+
+    /* ── Step pill ─────────────────────────────────────────────── */
+    .step-num {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--teal) 0%, #4db8be 100%);
+        color: white;
+        font-family: 'Sora', sans-serif;
+        font-weight: 700;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 6px 20px rgba(113, 201, 206, 0.4);
+        margin: 0 auto 1.25rem;
+        transition: transform 0.3s;
+    }
+
+    .step-card:hover .step-num {
+        transform: scale(1.08) rotate(3deg);
+    }
+
+    /* ── Stat badge ────────────────────────────────────────────── */
+    .stat-val {
+        font-family: 'Sora', sans-serif;
+        font-weight: 800;
+        font-size: 2.4rem;
+        background: linear-gradient(135deg, var(--teal-dark) 0%, #3aabb1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.1;
+    }
+
+    /* ── CTA pill buttons ──────────────────────────────────────── */
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 28px;
+        background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+        color: white;
+        font-family: 'Sora', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border-radius: 14px;
+        text-decoration: none;
+        box-shadow: 0 6px 24px rgba(113, 201, 206, 0.45);
+        transition: all 0.25s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 32px rgba(113, 201, 206, 0.5);
+    }
+
+    .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 28px;
+        background: rgba(255, 255, 255, 0.8);
+        color: var(--ink);
+        font-family: 'Sora', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border-radius: 14px;
+        text-decoration: none;
+        border: 1.5px solid rgba(113, 201, 206, 0.3);
+        backdrop-filter: blur(8px);
+        transition: all 0.25s ease;
+    }
+
+    .btn-ghost:hover {
+        border-color: var(--teal);
+        color: var(--teal-dark);
+        transform: translateY(-2px);
+    }
+
+    /* ── Divider line ──────────────────────────────────────────── */
+    .section-label {
+        display: inline-block;
+        padding: 4px 14px;
+        border-radius: 99px;
+        background: var(--teal-pale);
+        color: var(--teal-dark);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        font-family: 'Sora', sans-serif;
+    }
+
+    /* ── Connector dots between steps ─────────────────────────── */
+    .step-connector {
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(90deg, var(--teal-dim), transparent);
+        margin-top: -30px;
+        opacity: 0.5;
+    }
+
+    /* ── Testimonial card ──────────────────────────────────────── */
+    .quote-mark {
+        font-family: 'Sora', serif;
+        font-size: 4rem;
+        line-height: 1;
+        color: var(--teal-dim);
+        margin-bottom: -1rem;
+        display: block;
+    }
+
+    /* ── Scroll reveal ─────────────────────────────────────────── */
+    .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* ── Full-bleed hero: break out of any wrapping container ──── */
+    .hero-bg {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+
+    /* ── Kill the white box from header.php wrapper ────────────── */
+    body {
+        background: #f0fdfd !important;
+    }
+
+    /* Strip background + padding from every common wrapper pattern */
+    body>div,
+    body>main,
+    body>div>div,
+    [class*="max-w"],
+    [class*="container"],
+    .page-wrapper,
+    .content-wrapper,
+    .wrapper,
+    #app,
+    #main,
+    #content {
+        background: transparent !important;
+    }
+
+    /* Also nuke any Tailwind bg-white / bg-gray etc that might be on the wrapper */
+    .bg-white:not(nav):not(nav *) {
+        background-color: transparent !important;
+    }
+
+    .bg-gray-50:not(nav):not(nav *) {
+        background-color: transparent !important;
+    }
+
+    .bg-gray-100:not(nav):not(nav *) {
+        background-color: transparent !important;
+    }
+
+    /* Re-apply white bg only to our explicit content sections */
+    section.features-section {
+        background-color: #ffffff !important;
+    }
+
+    section.hiw-section {
+        background: linear-gradient(135deg, #f0fdfd 0%, #f8fffe 100%) !important;
+    }
+
+    section.marquee-section {
+        background-color: #ffffff !important;
+        border-top: 1px solid #E3FDFD;
+        border-bottom: 1px solid #E3FDFD;
+    }
+
+    section.testimonial-section {
+        background-color: #ffffff !important;
+    }
+
+    section.cta-section {
+        background: linear-gradient(135deg, #e3fdfd 0%, #cbf5f7 100%) !important;
+    }
+
+    /* Sections after hero restore their own backgrounds */
+    section.py-28,
+    section.py-20,
+    section.py-10 {
+        position: relative;
+        z-index: 1;
+    }
 </style>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -290,11 +461,11 @@ section.py-10 {
             ];
             foreach ($stats as $s):
             ?>
-            <div class="glass rounded-2xl p-5 text-center transition-all duration-300">
-                <i class="fas <?= $s[2] ?> text-[#71C9CE] text-xl mb-2 block"></i>
-                <div class="stat-val"><?= $s[0] ?></div>
-                <div class="text-xs text-[#6b7a8d] font-medium mt-1"><?= $s[1] ?></div>
-            </div>
+                <div class="glass rounded-2xl p-5 text-center transition-all duration-300">
+                    <i class="fas <?= $s[2] ?> text-[#71C9CE] text-xl mb-2 block"></i>
+                    <div class="stat-val"><?= $s[0] ?></div>
+                    <div class="text-xs text-[#6b7a8d] font-medium mt-1"><?= $s[1] ?></div>
+                </div>
             <?php endforeach; ?>
         </div>
     </div>
@@ -322,11 +493,11 @@ section.py-10 {
             ];
             foreach ($features as $i => $f):
             ?>
-            <div class="glass rounded-2xl p-7 reveal transition-all duration-300 cursor-default" style="transition-delay:<?= $i * 0.08 ?>s">
-                <div class="feat-icon"><i class="fas <?= $f[0] ?>"></i></div>
-                <h3 class="font-bold text-lg text-[#0d1117] mb-2"><?= $f[1] ?></h3>
-                <p class="text-[#6b7a8d] text-sm leading-relaxed"><?= $f[2] ?></p>
-            </div>
+                <div class="glass rounded-2xl p-7 reveal transition-all duration-300 cursor-default" style="transition-delay:<?= $i * 0.08 ?>s">
+                    <div class="feat-icon"><i class="fas <?= $f[0] ?>"></i></div>
+                    <h3 class="font-bold text-lg text-[#0d1117] mb-2"><?= $f[1] ?></h3>
+                    <p class="text-[#6b7a8d] text-sm leading-relaxed"><?= $f[2] ?></p>
+                </div>
             <?php endforeach; ?>
         </div>
     </div>
@@ -352,11 +523,11 @@ section.py-10 {
             ];
             foreach ($steps as $i => $s):
             ?>
-            <div class="step-card text-center reveal" style="transition-delay:<?= $i * 0.1 ?>s">
-                <div class="step-num"><?= $i + 1 ?></div>
-                <h3 class="font-bold text-[#0d1117] text-lg mb-2"><?= $s[0] ?></h3>
-                <p class="text-[#6b7a8d] text-sm leading-relaxed"><?= $s[1] ?></p>
-            </div>
+                <div class="step-card text-center reveal" style="transition-delay:<?= $i * 0.1 ?>s">
+                    <div class="step-num"><?= $i + 1 ?></div>
+                    <h3 class="font-bold text-[#0d1117] text-lg mb-2"><?= $s[0] ?></h3>
+                    <p class="text-[#6b7a8d] text-sm leading-relaxed"><?= $s[1] ?></p>
+                </div>
             <?php endforeach; ?>
         </div>
     </div>
@@ -367,19 +538,40 @@ section.py-10 {
 ════════════════════════════════════════════════════════════ -->
 <section class="py-10 marquee-section overflow-hidden">
     <style>
-    .marquee-track { display:flex; gap:0; animation: marquee 22s linear infinite; width: max-content; }
-    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    .marquee-item {
-        display: inline-flex; align-items: center; gap: 10px;
-        padding: 0 36px;
-        font-family: 'Sora', sans-serif;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: #6b7a8d;
-        white-space: nowrap;
-        border-right: 1.5px solid #E3FDFD;
-    }
-    .marquee-item i { color: #71C9CE; font-size: 1rem; }
+        .marquee-track {
+            display: flex;
+            gap: 0;
+            animation: marquee 22s linear infinite;
+            width: max-content;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .marquee-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 36px;
+            font-family: 'Sora', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6b7a8d;
+            white-space: nowrap;
+            border-right: 1.5px solid #E3FDFD;
+        }
+
+        .marquee-item i {
+            color: #71C9CE;
+            font-size: 1rem;
+        }
     </style>
     <div class="marquee-track">
         <?php
@@ -399,7 +591,7 @@ section.py-10 {
         ];
         foreach ($services as $sv):
         ?>
-        <div class="marquee-item"><i class="fas <?= $sv[0] ?>"></i><?= $sv[1] ?></div>
+            <div class="marquee-item"><i class="fas <?= $sv[0] ?>"></i><?= $sv[1] ?></div>
         <?php endforeach; ?>
     </div>
 </section>
@@ -411,7 +603,7 @@ section.py-10 {
     <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-16 reveal">
             <span class="section-label">What People Say</span>
-            <h2 class="text-4xl font-bold text-[#0d1117] mt-2">Trusted by thousands<br>across Metro Manila</h2>
+            <h2 class="text-4xl font-bold text-[#0d1117] mt-2">Trusted by thousands<br>across the Philippines</h2>
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
@@ -423,25 +615,25 @@ section.py-10 {
             ];
             foreach ($testimonials as $i => $t):
             ?>
-            <div class="glass rounded-2xl p-7 reveal" style="transition-delay:<?= $i * 0.1 ?>s">
-                <span class="quote-mark">"</span>
-                <p class="text-[#374151] text-sm leading-relaxed mb-6"><?= $t[3] ?></p>
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
-                         style="background:linear-gradient(135deg,#71C9CE,#4db8be)">
-                        <?= strtoupper(substr($t[0], 0, 1)) ?>
-                    </div>
-                    <div>
-                        <div class="font-semibold text-sm text-[#0d1117]"><?= $t[0] ?></div>
-                        <div class="text-xs text-[#6b7a8d]"><?= $t[1] ?></div>
-                    </div>
-                    <div class="ml-auto flex gap-0.5">
-                        <?php for ($s = 0; $s < 5; $s++): ?>
-                        <i class="fas fa-star text-xs <?= $s < floor($t[2]) ? 'text-yellow-400' : 'text-gray-200' ?>"></i>
-                        <?php endfor; ?>
+                <div class="glass rounded-2xl p-7 reveal" style="transition-delay:<?= $i * 0.1 ?>s">
+                    <span class="quote-mark">"</span>
+                    <p class="text-[#374151] text-sm leading-relaxed mb-6"><?= $t[3] ?></p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+                            style="background:linear-gradient(135deg,#71C9CE,#4db8be)">
+                            <?= strtoupper(substr($t[0], 0, 1)) ?>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm text-[#0d1117]"><?= $t[0] ?></div>
+                            <div class="text-xs text-[#6b7a8d]"><?= $t[1] ?></div>
+                        </div>
+                        <div class="ml-auto flex gap-0.5">
+                            <?php for ($s = 0; $s < 5; $s++): ?>
+                                <i class="fas fa-star text-xs <?= $s < floor($t[2]) ? 'text-yellow-400' : 'text-gray-200' ?>"></i>
+                            <?php endfor; ?>
+                        </div>
                     </div>
                 </div>
-            </div>
             <?php endforeach; ?>
         </div>
     </div>
@@ -470,17 +662,19 @@ section.py-10 {
 </section>
 
 <script>
-// ── Intersection Observer for scroll reveals ──────────────────
-const revealEls = document.querySelectorAll('.reveal');
-const observer  = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-        }
+    // ── Intersection Observer for scroll reveals ──────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12
     });
-}, { threshold: 0.12 });
-revealEls.forEach(el => observer.observe(el));
+    revealEls.forEach(el => observer.observe(el));
 </script>
 
 <?php include('../includes/footer.php'); ?>
